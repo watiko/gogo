@@ -1,0 +1,10 @@
+development:
+  dialect: postgres
+  datasource: dbname=gogo sslmode=disable
+  table: migrations
+
+production:
+  dialect: postgres
+  datasource: dbname=myapp sslmode=disable
+  dir: migrations/postgres
+  table: migrations

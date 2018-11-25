@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+
+  web:
+    build:
+      context: .
+      target: dep
+    working_dir: /work
+    command: bin/gin --port 3000 --appPort 8080 run go run main.go
+    volumes:
+      - ./main.go:/work/main.go
+      - ./go.mod:/work/go.mod
+      - ./go.sum:/work/go.sum
+    ports:
+      - 3000:3000
+    links:
+      - postgres
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    expose:
+      - 5432
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
