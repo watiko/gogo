@@ -14,3 +14,9 @@
 
 .idea/
 out/
+
+# tools
+bin/
+
+# bin
+gogo
