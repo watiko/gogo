@@ -13,6 +13,7 @@ import (
 
 func main() {
 	install_bin("gin", "github.com/codegangsta/gin")
+	teardown()
 }
 
 func install_bin(bin_name string, package_name string) {
@@ -23,6 +24,16 @@ func install_bin(bin_name string, package_name string) {
 
 	fmt.Printf("cmd: %s\n", strings.Join(cmd.Args, " "))
 	fmt.Printf("out: %s\n", out)
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "err: %s\n", err)
+	}
+}
+
+func teardown() {
+	// go.mod に indirect な依存関係が追加されてしまうので綺麗にしている
+	// ref: https://github.com/golang/go/issues/26474#issuecomment-407519043
+	_, err := exec.Command("go", "mod", "tidy").CombinedOutput()
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "err: %s\n", err)
