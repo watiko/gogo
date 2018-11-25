@@ -9,10 +9,12 @@ import (
 	"strings"
 
 	_ "github.com/codegangsta/gin/lib" // これは微妙な書き方かもしれない
+	_ "github.com/rubenv/sql-migrate"
 )
 
 func main() {
 	install_bin("gin", "github.com/codegangsta/gin")
+	install_bin("sql-migrate", "github.com/rubenv/sql-migrate/sql-migrate")
 	teardown()
 }
 
